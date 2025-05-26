@@ -8,6 +8,7 @@ public class LoanEligibilitySystemApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(LoanEligibilitySystemApplication.class, args);
+		System.out.println("Testedok");
 	}
 
 }
