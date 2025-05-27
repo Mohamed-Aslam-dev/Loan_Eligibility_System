@@ -2,10 +2,13 @@ package com.loan_eligibility_system_homeloan.beans;
 
 import java.util.Date;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class HomeloanApplyPersonalDatas {
@@ -22,12 +25,26 @@ public class HomeloanApplyPersonalDatas {
 	private String panNumber;
 	private String aadharNumber;
 
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "personal_id", referencedColumnName = "sNo")
+	private HomeloanApplyPersonalDatas personalData;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "income_id", referencedColumnName = "sNo")
+	private HomeloanApplyIncomeDatas incomeData;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "home_id", referencedColumnName = "sNo")
+	private HomeloanApplyHomeDatas homeData;
+
 	public HomeloanApplyPersonalDatas() {
 		
 	}
 
 	public HomeloanApplyPersonalDatas(Integer sNo, String fullName, String mailId, Long mobileNumber, Date dateOfBirth,
-			String gender, String martialStatus, String panNumber, String aadharNumber) {
+			String gender, String martialStatus, String panNumber, String aadharNumber,
+			HomeloanApplyPersonalDatas personalData, HomeloanApplyIncomeDatas incomeData,
+			HomeloanApplyHomeDatas homeData) {
 		
 		this.sNo = sNo;
 		this.fullName = fullName;
@@ -38,6 +55,9 @@ public class HomeloanApplyPersonalDatas {
 		this.martialStatus = martialStatus;
 		this.panNumber = panNumber;
 		this.aadharNumber = aadharNumber;
+		this.personalData = personalData;
+		this.incomeData = incomeData;
+		this.homeData = homeData;
 	}
 
 	public Integer getsNo() {
@@ -112,12 +132,36 @@ public class HomeloanApplyPersonalDatas {
 		this.aadharNumber = aadharNumber;
 	}
 
+	public HomeloanApplyPersonalDatas getPersonalData() {
+		return personalData;
+	}
+
+	public void setPersonalData(HomeloanApplyPersonalDatas personalData) {
+		this.personalData = personalData;
+	}
+
+	public HomeloanApplyIncomeDatas getIncomeData() {
+		return incomeData;
+	}
+
+	public void setIncomeData(HomeloanApplyIncomeDatas incomeData) {
+		this.incomeData = incomeData;
+	}
+
+	public HomeloanApplyHomeDatas getHomeData() {
+		return homeData;
+	}
+
+	public void setHomeData(HomeloanApplyHomeDatas homeData) {
+		this.homeData = homeData;
+	}
+
 	@Override
 	public String toString() {
 		return "HomeloanApplyPersonalDatas [sNo=" + sNo + ", fullName=" + fullName + ", mailId=" + mailId
 				+ ", mobileNumber=" + mobileNumber + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender
 				+ ", martialStatus=" + martialStatus + ", panNumber=" + panNumber + ", aadharNumber=" + aadharNumber
-				+ "]";
+				+ ", personalData=" + personalData + ", incomeData=" + incomeData + ", homeData=" + homeData + "]";
 	}
 
 }
