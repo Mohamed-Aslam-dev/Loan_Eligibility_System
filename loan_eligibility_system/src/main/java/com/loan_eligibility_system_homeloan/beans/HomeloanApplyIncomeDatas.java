@@ -1,5 +1,7 @@
 package com.loan_eligibility_system_homeloan.beans;
 
+import com.loan_eligibility_system_homeloan.enums.EmploymentType;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -7,10 +9,6 @@ import jakarta.persistence.Id;
 
 @Entity
 public class HomeloanApplyIncomeDatas {
-
-	enum EmploymentType {
-		SALARIED, SELF_EMPLOYED, BUSINESS
-	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

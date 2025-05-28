@@ -1,9 +1,14 @@
 package com.loan_eligibility_system_homeloan.beans;
 
+import com.loan_eligibility_system_homeloan.enums.LoanStatus;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class HomeloanApplyLoanDatas {
@@ -18,14 +23,28 @@ public class HomeloanApplyLoanDatas {
 	private String bankIFSCcode;
 	private String bankName;
 	private String loanReferenceId;
-	private String status = "Pending";
+	private LoanStatus loanStatus;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "personal_id", referencedColumnName = "sNo")
+	private HomeloanApplyPersonalDatas personalData;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "income_id", referencedColumnName = "sNo")
+	private HomeloanApplyIncomeDatas incomeData;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "home_id", referencedColumnName = "sNo")
+	private HomeloanApplyHomeDatas homeData;
 
 	public HomeloanApplyLoanDatas() {
 
 	}
 
 	public HomeloanApplyLoanDatas(Integer sNo, Double loanAmount, Integer tenure, Integer cibilScore,
-			Long bankAccountNumber, String bankIFSCcode, String bankName, String loanReferenceId, String status) {
+			Long bankAccountNumber, String bankIFSCcode, String bankName, String loanReferenceId, LoanStatus loanStatus,
+			HomeloanApplyPersonalDatas personalData, HomeloanApplyIncomeDatas incomeData,
+			HomeloanApplyHomeDatas homeData) {
 
 		this.sNo = sNo;
 		this.loanAmount = loanAmount;
@@ -35,7 +54,10 @@ public class HomeloanApplyLoanDatas {
 		this.bankIFSCcode = bankIFSCcode;
 		this.bankName = bankName;
 		this.loanReferenceId = loanReferenceId;
-		this.status = status;
+		this.loanStatus = loanStatus;
+		this.personalData = personalData;
+		this.incomeData = incomeData;
+		this.homeData = homeData;
 	}
 
 	public Integer getsNo() {
@@ -102,20 +124,45 @@ public class HomeloanApplyLoanDatas {
 		this.loanReferenceId = loanReferenceId;
 	}
 
-	public String getStatus() {
-		return status;
+	public LoanStatus getLoanStatus() {
+		return loanStatus;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setLoanStatus(LoanStatus loanStatus) {
+		this.loanStatus = loanStatus;
+	}
+
+	public HomeloanApplyPersonalDatas getPersonalData() {
+		return personalData;
+	}
+
+	public void setPersonalData(HomeloanApplyPersonalDatas personalData) {
+		this.personalData = personalData;
+	}
+
+	public HomeloanApplyIncomeDatas getIncomeData() {
+		return incomeData;
+	}
+
+	public void setIncomeData(HomeloanApplyIncomeDatas incomeData) {
+		this.incomeData = incomeData;
+	}
+
+	public HomeloanApplyHomeDatas getHomeData() {
+		return homeData;
+	}
+
+	public void setHomeData(HomeloanApplyHomeDatas homeData) {
+		this.homeData = homeData;
 	}
 
 	@Override
 	public String toString() {
 		return "HomeloanApplyLoanDatas [sNo=" + sNo + ", loanAmount=" + loanAmount + ", tenure=" + tenure
 				+ ", cibilScore=" + cibilScore + ", bankAccountNumber=" + bankAccountNumber + ", bankIFSCcode="
-				+ bankIFSCcode + ", bankName=" + bankName + ", loanReferenceId=" + loanReferenceId + ", status="
-				+ status + "]";
+				+ bankIFSCcode + ", bankName=" + bankName + ", loanReferenceId=" + loanReferenceId + ", loanStatus="
+				+ loanStatus + ", personalData=" + personalData + ", incomeData=" + incomeData + ", homeData="
+				+ homeData + "]";
 	}
 
 }
