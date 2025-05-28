@@ -1,6 +1,8 @@
 package com.loan_eligibility_system_homeloan.service;
 
+import java.time.LocalDate;
 import java.util.Random;
+import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import com.loan_eligibility_system_homeloan.beans.HomeloanApplyPersonalDatas;
 import com.loan_eligibility_system_homeloan.enums.LoanStatus;
 import com.loan_eligibility_system_homeloan.repository.HomeloanApplyRepository;
 import com.loan_eligibility_system_homeloan.requestDTO.HomeloanApplyRequestDTO;
+import com.loan_eligibility_system_homeloan.responseDTO.LoanApplyResponseDTO;
 import com.loan_eligibility_system_homeloan.service_repository.HomeloanApplyServiceRepository;
 
 @Service
@@ -63,16 +66,24 @@ public class HomeloanApplyService implements HomeloanApplyServiceRepository{
 		newHomeLoanLoanData.setHomeData(newHomeLoanHomeData);
 
 		homeloanApplyRepository.save(newHomeLoanLoanData);
+		
+		LoanApplyResponseDTO loanApplyResponse = new LoanApplyResponseDTO();
+		
+		loanApplyResponse.setLoanId(newHomeLoanLoanData.getLoanReferenceId());
+		loanApplyResponse.setCibilScore(newHomeLoanLoanData.getCibilScore());
+		loanApplyResponse.setLoanStatus(newHomeLoanLoanData.getLoanStatus());
+		loanApplyResponse.setMessage(null);
+		
 
-		return "Your Details Has Been Added Successfully " + newHomeLoanLoanData;
+		return "Your Details Has Been Added Successfully " + loanApplyResponse;
 	}
 
 	public static String generateLoanReferenceId() {
 
-		Random generateLoanRefId = new Random();
-		int generatedRefId = generateLoanRefId.nextInt(1000, 9999);
-
-		return "HMLN" + generatedRefId;
+		int year = LocalDate.now().getYear();
+		String prefix = "HMLN";
+		String random = UUID.randomUUID().toString().substring(0,8).toUpperCase();
+		return prefix+"_"+year+"_"+random;
 	}
 
 	public static int generateCibilScore() {
