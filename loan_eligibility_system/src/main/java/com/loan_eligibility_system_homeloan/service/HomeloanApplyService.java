@@ -26,6 +26,7 @@ public class HomeloanApplyService implements HomeloanApplyServiceRepository{
 	public HomeloanApplyService(HomeloanApplyRepository homeloanApplyRepository) {
 		
 		this.homeloanApplyRepository = homeloanApplyRepository;
+		
 	}
 
 	public String applyLoan(HomeloanApplyRequestDTO newLoanApplyData) {
@@ -51,7 +52,6 @@ public class HomeloanApplyService implements HomeloanApplyServiceRepository{
 		newHomeLoanHomeData.setPropertyLocation(newLoanApplyData.getPropertyLocation());
 
 		HomeloanApplyLoanDatas newHomeLoanLoanData = new HomeloanApplyLoanDatas();
-		BeanUtils.copyProperties(newHomeLoanHomeData, newHomeLoanLoanData);
 		newHomeLoanLoanData.setLoanAmount(newLoanApplyData.getLoanAmount());
 		newHomeLoanLoanData.setBankAccountNumber(newLoanApplyData.getBankAccountNumber());
 		newHomeLoanLoanData.setBankIFSCcode(newLoanApplyData.getBankIFSCcode());
@@ -73,11 +73,12 @@ public class HomeloanApplyService implements HomeloanApplyServiceRepository{
 		loanApplyResponse.setCibilScore(newHomeLoanLoanData.getCibilScore());
 		loanApplyResponse.setLoanStatus(newHomeLoanLoanData.getLoanStatus());
 		loanApplyResponse.setMessage(null);
-		
 
 		return "Your Details Has Been Added Successfully " + loanApplyResponse;
 	}
 
+	
+	
 	public static String generateLoanReferenceId() {
 
 		int year = LocalDate.now().getYear();
