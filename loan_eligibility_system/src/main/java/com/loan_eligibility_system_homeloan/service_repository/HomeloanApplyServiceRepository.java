@@ -1,9 +1,17 @@
 package com.loan_eligibility_system_homeloan.service_repository;
 
-import com.loan_eligibility_system_homeloan.requestDTO.HomeloanApplyRequestDTO;
+import com.loan_eligibility_system_homeloan.requestDTO.HomeloanApplyHomeDTO;
+import com.loan_eligibility_system_homeloan.requestDTO.HomeloanApplyIncomeDTO;
+import com.loan_eligibility_system_homeloan.requestDTO.HomeloanApplyLoanDTO;
+import com.loan_eligibility_system_homeloan.requestDTO.HomeloanApplyPersonalDTO;
+import com.loan_eligibility_system_homeloan.responseDTO.HomeloanGetApplyDetails;
 
 public interface HomeloanApplyServiceRepository {
 	
-	public String applyLoan(HomeloanApplyRequestDTO newLoanApplyData);
+	String applyPersonalData(HomeloanApplyPersonalDTO newLoanApplyPersonalData);
+	String applyIncomeData(HomeloanApplyIncomeDTO newLoanApplyIncomeData);
+	String applyHomeData(HomeloanApplyHomeDTO newLoanApplyHomeData);
+	String applyLoanData(HomeloanApplyLoanDTO newLoanApplyLoanData);
+	HomeloanGetApplyDetails getTheLoanDetails(Integer id);
 
 }

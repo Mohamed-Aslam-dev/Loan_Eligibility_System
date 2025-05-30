@@ -1,5 +1,7 @@
 package com.loan_eligibility_system_homeloan.beans;
 
+import java.time.LocalDateTime;
+
 import com.loan_eligibility_system_homeloan.enums.LoanStatus;
 
 import jakarta.persistence.CascadeType;
@@ -24,6 +26,7 @@ public class HomeloanApplyLoanDatas {
 	private String bankName;
 	private String loanReferenceId;
 	private LoanStatus loanStatus;
+	private LocalDateTime appliedDateAndTime;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "personal_id", referencedColumnName = "sNo")
@@ -43,9 +46,9 @@ public class HomeloanApplyLoanDatas {
 
 	public HomeloanApplyLoanDatas(Integer sNo, Double loanAmount, Integer tenure, Integer cibilScore,
 			Long bankAccountNumber, String bankIFSCcode, String bankName, String loanReferenceId, LoanStatus loanStatus,
-			HomeloanApplyPersonalDatas personalData, HomeloanApplyIncomeDatas incomeData,
-			HomeloanApplyHomeDatas homeData) {
-
+			LocalDateTime appliedDateAndTime, HomeloanApplyPersonalDatas personalData,
+			HomeloanApplyIncomeDatas incomeData, HomeloanApplyHomeDatas homeData) {
+		super();
 		this.sNo = sNo;
 		this.loanAmount = loanAmount;
 		this.tenure = tenure;
@@ -55,6 +58,7 @@ public class HomeloanApplyLoanDatas {
 		this.bankName = bankName;
 		this.loanReferenceId = loanReferenceId;
 		this.loanStatus = loanStatus;
+		this.appliedDateAndTime = appliedDateAndTime;
 		this.personalData = personalData;
 		this.incomeData = incomeData;
 		this.homeData = homeData;
@@ -132,6 +136,14 @@ public class HomeloanApplyLoanDatas {
 		this.loanStatus = loanStatus;
 	}
 
+	public LocalDateTime getAppliedDateAndTime() {
+		return appliedDateAndTime;
+	}
+
+	public void setAppliedDateAndTime(LocalDateTime appliedDateAndTime) {
+		this.appliedDateAndTime = appliedDateAndTime;
+	}
+
 	public HomeloanApplyPersonalDatas getPersonalData() {
 		return personalData;
 	}
@@ -161,8 +173,11 @@ public class HomeloanApplyLoanDatas {
 		return "HomeloanApplyLoanDatas [sNo=" + sNo + ", loanAmount=" + loanAmount + ", tenure=" + tenure
 				+ ", cibilScore=" + cibilScore + ", bankAccountNumber=" + bankAccountNumber + ", bankIFSCcode="
 				+ bankIFSCcode + ", bankName=" + bankName + ", loanReferenceId=" + loanReferenceId + ", loanStatus="
-				+ loanStatus + ", personalData=" + personalData + ", incomeData=" + incomeData + ", homeData="
-				+ homeData + "]";
+				+ loanStatus + ", appliedDateAndTime=" + appliedDateAndTime + ", personalData=" + personalData
+				+ ", incomeData=" + incomeData + ", homeData=" + homeData + "]";
 	}
+	
+	
 
+	
 }

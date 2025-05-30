@@ -1,97 +1,139 @@
 package com.loan_eligibility_system_homeloan.service;
 
-import java.time.LocalDate;
-import java.util.Random;
-import java.util.UUID;
 
-import org.springframework.beans.BeanUtils;
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Service;
 
+import com.loan_eligibility_system_exceptions.LoanNotFoundException;
 import com.loan_eligibility_system_homeloan.beans.HomeloanApplyHomeDatas;
 import com.loan_eligibility_system_homeloan.beans.HomeloanApplyIncomeDatas;
 import com.loan_eligibility_system_homeloan.beans.HomeloanApplyLoanDatas;
 import com.loan_eligibility_system_homeloan.beans.HomeloanApplyPersonalDatas;
 import com.loan_eligibility_system_homeloan.enums.LoanStatus;
 import com.loan_eligibility_system_homeloan.repository.HomeloanApplyRepository;
-import com.loan_eligibility_system_homeloan.requestDTO.HomeloanApplyRequestDTO;
+import com.loan_eligibility_system_homeloan.requestDTO.HomeloanApplyHomeDTO;
+import com.loan_eligibility_system_homeloan.requestDTO.HomeloanApplyIncomeDTO;
+import com.loan_eligibility_system_homeloan.requestDTO.HomeloanApplyLoanDTO;
+import com.loan_eligibility_system_homeloan.requestDTO.HomeloanApplyPersonalDTO;
+import com.loan_eligibility_system_homeloan.responseDTO.HomeloanGetApplyDetails;
 import com.loan_eligibility_system_homeloan.responseDTO.LoanApplyResponseDTO;
 import com.loan_eligibility_system_homeloan.service_repository.HomeloanApplyServiceRepository;
 
 @Service
-public class HomeloanApplyService implements HomeloanApplyServiceRepository{
+public class HomeloanApplyService implements HomeloanApplyServiceRepository {
 
 	private HomeloanApplyRepository homeloanApplyRepository;
-	
-	
+
 	public HomeloanApplyService(HomeloanApplyRepository homeloanApplyRepository) {
-		
+
 		this.homeloanApplyRepository = homeloanApplyRepository;
-		
+
 	}
 
-	public String applyLoan(HomeloanApplyRequestDTO newLoanApplyData) {
-		
-		HomeloanApplyPersonalDatas newHomeLoanPersonalData = new HomeloanApplyPersonalDatas();
-		newHomeLoanPersonalData.setFullName(newLoanApplyData.getFullName());
-		newHomeLoanPersonalData.setMailId(newLoanApplyData.getMailId());
-		newHomeLoanPersonalData.setGender(newLoanApplyData.getGender());
-		newHomeLoanPersonalData.setAadharNumber(newLoanApplyData.getAadharNumber());
-		newHomeLoanPersonalData.setDateOfBirth(newLoanApplyData.getDateOfBirth());
-		newHomeLoanPersonalData.setMartialStatus(newLoanApplyData.getMartialStatus());
-		newHomeLoanPersonalData.setMobileNumber(newLoanApplyData.getMobileNumber());
-		newHomeLoanPersonalData.setPanNumber(newLoanApplyData.getPanNumber());
+	private HomeloanApplyPersonalDatas newHomeLoanPersonalData;
+	private HomeloanApplyIncomeDatas newHomeLoanIncomeData;
+	private HomeloanApplyHomeDatas newHomeLoanHomeData;
+	private HomeloanApplyLoanDatas newHomeLoanLoanData;
 
-		HomeloanApplyIncomeDatas newHomeLoanIncomeData = new HomeloanApplyIncomeDatas();
-		newHomeLoanIncomeData.setAnnualIncome(newLoanApplyData.getAnnualIncome());
-		newHomeLoanIncomeData.setEmploymentType(newLoanApplyData.getEmploymentType());
-		newHomeLoanIncomeData.setYearsOfExperience(newLoanApplyData.getYearsOfExperience());
+	public String applyPersonalData(HomeloanApplyPersonalDTO newLoanApplyPersonalData) {
 
-		HomeloanApplyHomeDatas newHomeLoanHomeData = new HomeloanApplyHomeDatas();
-		newHomeLoanHomeData.setEstimatedConstructionCost(newLoanApplyData.getEstimatedConstructionCost());
-		newHomeLoanHomeData.setLandOwnerName(newLoanApplyData.getLandOwnerName());
-		newHomeLoanHomeData.setPropertyLocation(newLoanApplyData.getPropertyLocation());
+		newHomeLoanPersonalData = new HomeloanApplyPersonalDatas();
+//		BeanUtils.copyProperties(newLoanApplyData, newHomeLoanPersonalData);
+		newHomeLoanPersonalData.setFullName(newLoanApplyPersonalData.getFullName());
+		newHomeLoanPersonalData.setMailId(newLoanApplyPersonalData.getMailId());
+		newHomeLoanPersonalData.setGender(newLoanApplyPersonalData.getGender());
+		newHomeLoanPersonalData.setAadharNumber(newLoanApplyPersonalData.getAadharNumber());
+		newHomeLoanPersonalData.setDateOfBirth(newLoanApplyPersonalData.getDateOfBirth());
+		newHomeLoanPersonalData.setMartialStatus(newLoanApplyPersonalData.getMartialStatus());
+		newHomeLoanPersonalData.setMobileNumber(newLoanApplyPersonalData.getMobileNumber());
+		newHomeLoanPersonalData.setPanNumber(newLoanApplyPersonalData.getPanNumber());
 
-		HomeloanApplyLoanDatas newHomeLoanLoanData = new HomeloanApplyLoanDatas();
-		newHomeLoanLoanData.setLoanAmount(newLoanApplyData.getLoanAmount());
-		newHomeLoanLoanData.setBankAccountNumber(newLoanApplyData.getBankAccountNumber());
-		newHomeLoanLoanData.setBankIFSCcode(newLoanApplyData.getBankIFSCcode());
-		newHomeLoanLoanData.setBankName(newLoanApplyData.getBankName());
-		newHomeLoanLoanData.setTenure(newLoanApplyData.getTenure());
+		return "Success";
+
+	}
+
+	public String applyIncomeData(HomeloanApplyIncomeDTO newLoanApplyIncomeData) {
+
+		newHomeLoanIncomeData = new HomeloanApplyIncomeDatas();
+
+//		BeanUtils.copyProperties(newHomeLoanPersonalData, newHomeLoanIncomeData);
+		newHomeLoanIncomeData.setAnnualIncome(newLoanApplyIncomeData.getAnnualIncome());
+		newHomeLoanIncomeData.setEmploymentType(newLoanApplyIncomeData.getEmploymentType());
+		newHomeLoanIncomeData.setYearsOfExperience(newLoanApplyIncomeData.getYearsOfExperience());
+
+		return "Success";
+
+	}
+
+	public String applyHomeData(HomeloanApplyHomeDTO newLoanApplyHomeData) {
+
+		newHomeLoanHomeData = new HomeloanApplyHomeDatas();
+
+//		BeanUtils.copyProperties(newHomeLoanIncomeData, newHomeLoanHomeData);
+		newHomeLoanHomeData.setEstimatedConstructionCost(newLoanApplyHomeData.getEstimatedConstructionCost());
+		newHomeLoanHomeData.setLandOwnerName(newLoanApplyHomeData.getLandOwnerName());
+		newHomeLoanHomeData.setPropertyLocation(newLoanApplyHomeData.getPropertyLocation());
+
+		return "Success";
+	}
+
+	public String applyLoanData(HomeloanApplyLoanDTO newLoanApplyLoanData) {
+
+		newHomeLoanLoanData = new HomeloanApplyLoanDatas();
+
+//		BeanUtils.copyProperties(newHomeLoanHomeData, newHomeLoanLoanData);
+		newHomeLoanLoanData.setLoanAmount(newLoanApplyLoanData.getLoanAmount());
+		newHomeLoanLoanData.setBankAccountNumber(newLoanApplyLoanData.getBankAccountNumber());
+		newHomeLoanLoanData.setBankIFSCcode(newLoanApplyLoanData.getBankIFSCcode());
+		newHomeLoanLoanData.setBankName(newLoanApplyLoanData.getBankName());
+		newHomeLoanLoanData.setTenure(newLoanApplyLoanData.getTenure());
 		newHomeLoanLoanData.setLoanStatus(LoanStatus.PENDING);
-		newHomeLoanLoanData.setLoanReferenceId(HomeloanApplyService.generateLoanReferenceId());
-		newHomeLoanLoanData.setCibilScore(HomeloanApplyService.generateCibilScore());
+		newHomeLoanLoanData.setLoanReferenceId(HomeloanApplyDecisionService.generateLoanReferenceId());
+		newHomeLoanLoanData.setCibilScore(HomeloanApplyDecisionService.generateCibilScore());
+		newHomeLoanLoanData.setAppliedDateAndTime(LocalDateTime.now());
 
 		newHomeLoanLoanData.setPersonalData(newHomeLoanPersonalData);
 		newHomeLoanLoanData.setIncomeData(newHomeLoanIncomeData);
 		newHomeLoanLoanData.setHomeData(newHomeLoanHomeData);
 
-		homeloanApplyRepository.save(newHomeLoanLoanData);
-		
-		LoanApplyResponseDTO loanApplyResponse = new LoanApplyResponseDTO();
-		
-		loanApplyResponse.setLoanId(newHomeLoanLoanData.getLoanReferenceId());
-		loanApplyResponse.setCibilScore(newHomeLoanLoanData.getCibilScore());
-		loanApplyResponse.setLoanStatus(newHomeLoanLoanData.getLoanStatus());
-		loanApplyResponse.setMessage(null);
+		if (HomeloanApplyDecisionService.checkEligibilityForLoan(newHomeLoanPersonalData, newHomeLoanIncomeData,
+				newHomeLoanHomeData, newHomeLoanLoanData)) {
 
-		return "Your Details Has Been Added Successfully " + loanApplyResponse;
+			homeloanApplyRepository.save(newHomeLoanLoanData);
+
+			LoanApplyResponseDTO loanResponse = new LoanApplyResponseDTO();
+
+			loanResponse.setLoanId(newHomeLoanLoanData.getLoanReferenceId());
+			loanResponse.setCibilScore(newHomeLoanLoanData.getCibilScore());
+			loanResponse.setLoanStatus(newHomeLoanLoanData.getLoanStatus());
+			loanResponse.setMessage(HomeloanApplyDecisionService.message);
+			loanResponse.setAppliedDate(newHomeLoanLoanData.getAppliedDateAndTime());
+
+			return "Your Details Has Been Added Successfully " + loanResponse;
+		} else {
+			LoanApplyResponseDTO loanResponse = new LoanApplyResponseDTO();
+			loanResponse.setMessage(HomeloanApplyDecisionService.message);
+			return "" + loanResponse.getMessage();
+		}
 	}
 
-	
-	
-	public static String generateLoanReferenceId() {
+	public HomeloanGetApplyDetails getTheLoanDetails(Integer id) {
 
-		int year = LocalDate.now().getYear();
-		String prefix = "HMLN";
-		String random = UUID.randomUUID().toString().substring(0,8).toUpperCase();
-		return prefix+"_"+year+"_"+random;
-	}
+		HomeloanApplyLoanDatas getLoanDatas = homeloanApplyRepository.findById(id)
+				.orElseThrow(() -> new LoanNotFoundException("Not found.."));
 
-	public static int generateCibilScore() {
+		HomeloanApplyPersonalDatas getPersonalDatas = getLoanDatas.getPersonalData();
 
-		Random generateRandomCibilScore = new Random();
+		HomeloanApplyHomeDatas getHomDatas = getLoanDatas.getHomeData();
 
-		return generateRandomCibilScore.nextInt(100, 850);
+		HomeloanApplyIncomeDatas getIncomeDatas = getLoanDatas.getIncomeData();
+
+		HomeloanGetApplyDetails getData = new HomeloanGetApplyDetails(getPersonalDatas.getFullName(), getPersonalDatas.getMobileNumber(),
+				getHomDatas.getLandOwnerName(), getLoanDatas.getCibilScore(), getLoanDatas.getBankName(), getLoanDatas.getLoanReferenceId(),
+				getLoanDatas.getLoanStatus(), getLoanDatas.getAppliedDateAndTime());
+
+		return getData;
 	}
 
 }
