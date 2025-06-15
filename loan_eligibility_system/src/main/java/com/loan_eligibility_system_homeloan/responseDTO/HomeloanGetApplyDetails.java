@@ -1,6 +1,5 @@
 package com.loan_eligibility_system_homeloan.responseDTO;
 
-import java.time.LocalDateTime;
 
 import com.loan_eligibility_system_homeloan.enums.LoanStatus;
 
@@ -13,15 +12,14 @@ public class HomeloanGetApplyDetails {
 	private String bankName;
 	private String loanReferenceId;
 	private LoanStatus loanStatus;
-	private LocalDateTime appliedDateAndTime;
 
 	public HomeloanGetApplyDetails() {
 
 	}
 
 	public HomeloanGetApplyDetails(String fullName, Long mobileNumber, String landOwnerName, Integer cibilScore,
-			String bankName, String loanReferenceId, LoanStatus loanStatus, LocalDateTime appliedDateAndTime) {
-
+			String bankName, String loanReferenceId, LoanStatus loanStatus) {
+		super();
 		this.fullName = fullName;
 		this.mobileNumber = mobileNumber;
 		this.landOwnerName = landOwnerName;
@@ -29,7 +27,6 @@ public class HomeloanGetApplyDetails {
 		this.bankName = bankName;
 		this.loanReferenceId = loanReferenceId;
 		this.loanStatus = loanStatus;
-		this.appliedDateAndTime = appliedDateAndTime;
 	}
 
 	public String getFullName() {
@@ -88,19 +85,11 @@ public class HomeloanGetApplyDetails {
 		this.loanStatus = loanStatus;
 	}
 
-	public LocalDateTime getAppliedDateAndTime() {
-		return appliedDateAndTime;
-	}
-
-	public void setAppliedDateAndTime(LocalDateTime appliedDateAndTime) {
-		this.appliedDateAndTime = appliedDateAndTime;
-	}
-
 	@Override
 	public String toString() {
 		return "HomeloanGetApplyDetails [fullName=" + fullName + ", mobileNumber=" + mobileNumber + ", landOwnerName="
 				+ landOwnerName + ", cibilScore=" + cibilScore + ", bankName=" + bankName + ", loanReferenceId="
-				+ loanReferenceId + ", loanStatus=" + loanStatus + ", appliedDateAndTime=" + appliedDateAndTime + "]";
+				+ loanReferenceId + ", loanStatus=" + loanStatus + "]";
 	}
 
 }

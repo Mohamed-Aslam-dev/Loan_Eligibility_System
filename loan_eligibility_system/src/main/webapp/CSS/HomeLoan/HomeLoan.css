@@ -1,0 +1,92 @@
+body {
+  background-color: #efe5de;
+  font-family: 'Quicksand', sans-serif;
+  color: #222;
+}
+
+h1.welcome-text {
+  color: #d94f00;
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: 500;
+  color: #333;
+}
+
+input[type="radio"] {
+  margin-right: 8px;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px; /* space between buttons */
+  justify-content: flex-start; /* align buttons to the left */
+  align-items: center; /* vertically align buttons */
+  margin-top: 15px; /* some spacing from above text */
+}
+
+button {
+  min-width: 80px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+#close-btn{
+  margin-bottom: -6.5px;
+}
+
+.home-loan-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  width: 90%;
+  max-width: 450px;
+  display: none;
+  background: linear-gradient(145deg, #fffdf8, #ffeeda);
+  border: 1px solid #ffc799;
+}
+
+.home-loan-box.show {
+  display: block;
+  /* animation: fadeIn 0.3s ease; */
+}
+
+button.btn-success {
+  background: linear-gradient(to right, #28a745, #218838);
+  border: none;
+}
+
+button.btn-danger {
+  background: linear-gradient(to right, #dc3545, #c82333);
+  border: none;
+}
+
+button:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+  transition: 0.2s ease-in-out;
+}
+
+.home-loan-box.show {
+  animation: fadeInSlide 0.5s ease;
+}
+
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}

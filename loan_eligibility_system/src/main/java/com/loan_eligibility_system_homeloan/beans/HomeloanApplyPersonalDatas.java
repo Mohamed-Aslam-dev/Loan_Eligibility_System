@@ -1,15 +1,14 @@
 package com.loan_eligibility_system_homeloan.beans;
 
-import java.util.Date;
-
+import java.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
 import com.loan_eligibility_system_homeloan.enums.MartialStatus;
-
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 
 @Entity
 public class HomeloanApplyPersonalDatas {
@@ -20,9 +19,10 @@ public class HomeloanApplyPersonalDatas {
 	private String fullName;
 	private String mailId;
 	private Long mobileNumber;
-	@Temporal(TemporalType.DATE)
-	private Date dateOfBirth;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate dateOfBirth;
 	private String gender;
+	@Enumerated(EnumType.STRING)
 	private MartialStatus martialStatus;
 	private String panNumber;
 	private String aadharNumber;
@@ -31,9 +31,8 @@ public class HomeloanApplyPersonalDatas {
 
 	}
 
-	public HomeloanApplyPersonalDatas(Integer sNo, String fullName, String mailId, Long mobileNumber, Date dateOfBirth,
-			String gender, MartialStatus martialStatus, String panNumber, String aadharNumber) {
-		super();
+	public HomeloanApplyPersonalDatas(Integer sNo, String fullName, String mailId, Long mobileNumber,
+			LocalDate dateOfBirth, String gender, MartialStatus martialStatus, String panNumber, String aadharNumber) {
 		this.sNo = sNo;
 		this.fullName = fullName;
 		this.mailId = mailId;
@@ -77,11 +76,11 @@ public class HomeloanApplyPersonalDatas {
 		this.mobileNumber = mobileNumber;
 	}
 
-	public Date getDateOfBirth() {
+	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 

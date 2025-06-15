@@ -1,0 +1,23 @@
+body {
+  background: #f4dfd0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.card {
+  max-width: 500px;
+  margin: 100px auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+.status-icon {
+  font-size: 4rem;
+}
+.success-icon {
+  color: #28a745;
+}
+.fail-icon {
+  color: #dc3545;
+}
+.applied-date {
+  font-size: 0.9rem;
+  color: #666;
+}

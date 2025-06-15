@@ -1,13 +1,9 @@
 package com.loan_eligibility_system_homeloan.requestDTO;
 
-import java.util.Date;
-
+import java.time.LocalDate;
 import com.loan_eligibility_system_homeloan.enums.MartialStatus;
-
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
@@ -16,7 +12,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 public class HomeloanApplyPersonalDTO {
-	
+
 	@NotBlank(message = "Please Enter Your Full Name")
 	private String fullName;
 
@@ -30,8 +26,7 @@ public class HomeloanApplyPersonalDTO {
 	private Long mobileNumber;
 
 	@NotNull(message = "Please Enter Your Date of Birth")
-	@Temporal(TemporalType.DATE)
-	private Date dateOfBirth;
+	private LocalDate dateOfBirth;
 
 	@NotBlank(message = "Please Enter Your Gender")
 	private String gender;
@@ -47,18 +42,18 @@ public class HomeloanApplyPersonalDTO {
 	private String aadharNumber;
 
 	public HomeloanApplyPersonalDTO() {
-		
+
 	}
 
 	public HomeloanApplyPersonalDTO(@NotBlank(message = "Please Enter Your Full Name") String fullName,
 			@NotBlank(message = "Please Enter Your Email") @Email(message = "Enter a valid email address") String mailId,
 			@NotNull(message = "Please Enter Your Mobile Number") @Digits(integer = 10, fraction = 0, message = "Mobile number should be 10 digits") @Min(value = 1000000000, message = "Mobile number should be 10 digits") Long mobileNumber,
-			@NotNull(message = "Please Enter Your Date of Birth") Date dateOfBirth,
+			@NotNull(message = "Please Enter Your Date of Birth") LocalDate dateOfBirth,
 			@NotBlank(message = "Please Enter Your Gender") String gender,
 			@NotNull(message = "Please Select Your Marital Status") MartialStatus martialStatus,
 			@Pattern(regexp = "[A-Z]{5}[0-9]{4}[A-Z]{1}", message = "Enter a valid PAN number (e.g., ABCDE1234F)") String panNumber,
 			@Pattern(regexp = "\\d{12}", message = "Aadhar number should be 12 digits") String aadharNumber) {
-		
+		super();
 		this.fullName = fullName;
 		this.mailId = mailId;
 		this.mobileNumber = mobileNumber;
@@ -93,11 +88,11 @@ public class HomeloanApplyPersonalDTO {
 		this.mobileNumber = mobileNumber;
 	}
 
-	public Date getDateOfBirth() {
+	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
@@ -139,9 +134,5 @@ public class HomeloanApplyPersonalDTO {
 				+ mobileNumber + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender + ", martialStatus="
 				+ martialStatus + ", panNumber=" + panNumber + ", aadharNumber=" + aadharNumber + "]";
 	}
-	
-	
-	
-	
 
 }

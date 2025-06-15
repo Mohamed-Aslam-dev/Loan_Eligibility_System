@@ -3,6 +3,8 @@ package com.loan_eligibility_system_homeloan.beans;
 import com.loan_eligibility_system_homeloan.enums.EmploymentType;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,6 +15,7 @@ public class HomeloanApplyIncomeDatas {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer sNo;
+	@Enumerated(EnumType.STRING)
 	private EmploymentType employmentType;
 	private Double annualIncome;
 	private String yearsOfExperience;

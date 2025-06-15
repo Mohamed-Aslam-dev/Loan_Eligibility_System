@@ -1,15 +1,17 @@
 package com.loan_eligibility_system_homeloan.beans;
 
 import java.time.LocalDateTime;
-
+import java.util.List;
 import com.loan_eligibility_system_homeloan.enums.LoanStatus;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -25,8 +27,9 @@ public class HomeloanApplyLoanDatas {
 	private String bankIFSCcode;
 	private String bankName;
 	private String loanReferenceId;
-	private LoanStatus loanStatus;
-	private LocalDateTime appliedDateAndTime;
+	@Enumerated(EnumType.STRING)
+	private LoanStatus status;
+	private LocalDateTime appliedDate;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "personal_id", referencedColumnName = "sNo")
@@ -40,15 +43,17 @@ public class HomeloanApplyLoanDatas {
 	@JoinColumn(name = "home_id", referencedColumnName = "sNo")
 	private HomeloanApplyHomeDatas homeData;
 
+	@OneToMany(mappedBy = "allLoanDatas", cascade = CascadeType.ALL)
+	private List<HomeloanApplyDocuments> documents;
+
 	public HomeloanApplyLoanDatas() {
 
 	}
 
 	public HomeloanApplyLoanDatas(Integer sNo, Double loanAmount, Integer tenure, Integer cibilScore,
-			Long bankAccountNumber, String bankIFSCcode, String bankName, String loanReferenceId, LoanStatus loanStatus,
-			LocalDateTime appliedDateAndTime, HomeloanApplyPersonalDatas personalData,
-			HomeloanApplyIncomeDatas incomeData, HomeloanApplyHomeDatas homeData) {
-		super();
+			Long bankAccountNumber, String bankIFSCcode, String bankName, String loanReferenceId, LoanStatus status,
+			LocalDateTime appliedDate, HomeloanApplyPersonalDatas personalData, HomeloanApplyIncomeDatas incomeData,
+			HomeloanApplyHomeDatas homeData, List<HomeloanApplyDocuments> documents) {
 		this.sNo = sNo;
 		this.loanAmount = loanAmount;
 		this.tenure = tenure;
@@ -57,11 +62,12 @@ public class HomeloanApplyLoanDatas {
 		this.bankIFSCcode = bankIFSCcode;
 		this.bankName = bankName;
 		this.loanReferenceId = loanReferenceId;
-		this.loanStatus = loanStatus;
-		this.appliedDateAndTime = appliedDateAndTime;
+		this.status = status;
+		this.appliedDate = appliedDate;
 		this.personalData = personalData;
 		this.incomeData = incomeData;
 		this.homeData = homeData;
+		this.documents = documents;
 	}
 
 	public Integer getsNo() {
@@ -128,20 +134,20 @@ public class HomeloanApplyLoanDatas {
 		this.loanReferenceId = loanReferenceId;
 	}
 
-	public LoanStatus getLoanStatus() {
-		return loanStatus;
+	public LoanStatus getStatus() {
+		return status;
 	}
 
-	public void setLoanStatus(LoanStatus loanStatus) {
-		this.loanStatus = loanStatus;
+	public void setStatus(LoanStatus status) {
+		this.status = status;
 	}
 
-	public LocalDateTime getAppliedDateAndTime() {
-		return appliedDateAndTime;
+	public LocalDateTime getAppliedDate() {
+		return appliedDate;
 	}
 
-	public void setAppliedDateAndTime(LocalDateTime appliedDateAndTime) {
-		this.appliedDateAndTime = appliedDateAndTime;
+	public void setAppliedDate(LocalDateTime appliedDate) {
+		this.appliedDate = appliedDate;
 	}
 
 	public HomeloanApplyPersonalDatas getPersonalData() {
@@ -168,16 +174,21 @@ public class HomeloanApplyLoanDatas {
 		this.homeData = homeData;
 	}
 
+	public List<HomeloanApplyDocuments> getDocuments() {
+		return documents;
+	}
+
+	public void setDocuments(List<HomeloanApplyDocuments> documents) {
+		this.documents = documents;
+	}
+
 	@Override
 	public String toString() {
 		return "HomeloanApplyLoanDatas [sNo=" + sNo + ", loanAmount=" + loanAmount + ", tenure=" + tenure
 				+ ", cibilScore=" + cibilScore + ", bankAccountNumber=" + bankAccountNumber + ", bankIFSCcode="
-				+ bankIFSCcode + ", bankName=" + bankName + ", loanReferenceId=" + loanReferenceId + ", loanStatus="
-				+ loanStatus + ", appliedDateAndTime=" + appliedDateAndTime + ", personalData=" + personalData
-				+ ", incomeData=" + incomeData + ", homeData=" + homeData + "]";
+				+ bankIFSCcode + ", bankName=" + bankName + ", loanReferenceId=" + loanReferenceId + ", status="
+				+ status + ", appliedDate=" + appliedDate + ", personalData=" + personalData + ", incomeData="
+				+ incomeData + ", homeData=" + homeData + ", documents=" + documents + "]";
 	}
-	
-	
 
-	
 }
